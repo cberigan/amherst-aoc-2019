@@ -110,18 +110,18 @@ const reducer = (accumulator, currentValue) => {
   return accumulator + currentValue;
 };
 
-const doItRecurrsiveLike = value => {
+const doItRecursiveLike = value => {
   let finalVal = 0;
 
-  const recurrsiveCalc = val => {
+  const recursiveCalc = val => {
     if (val >= 0) {
       finalVal = finalVal + val;
-      recurrsiveCalc(calc(val));
+      recursiveCalc(calc(val));
     }
     return finalVal;
   };
 
-  return recurrsiveCalc(value);
+  return recursiveCalc(value);
 };
 
 const runProblem1 = values => {
@@ -131,7 +131,7 @@ const runProblem1 = values => {
 const runProblem2 = values => {
   return values
     .map(calc)
-    .map(doItRecurrsiveLike)
+    .map(doItRecursiveLike)
     .reduce(reducer);
 };
 
