@@ -18,7 +18,7 @@ namespace AdventOfCodeChallenges.C2
 
         public long Run(long[] input = null) =>
             (input ?? C1.Challenge.Inputs)
-                .Select(i => MoreEnumerable.Unfold(i, x => _c1.FuelRequired(x), x => x > 0, x => x, x => x).Sum())
+                .SelectMany(i => MoreEnumerable.Unfold(i, x => _c1.FuelRequired(x), x => x > 0, x => x, x => x))
                 .Sum();
     }
 
