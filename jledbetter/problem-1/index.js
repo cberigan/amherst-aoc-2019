@@ -124,10 +124,16 @@ const doItRecurrsiveLike = value => {
   return recurrsiveCalc(value);
 };
 
-const run = values => {
-  const fuelReqs = values.map(calc);
-  const nextvalues = fuelReqs.map(doItRecurrsiveLike);
-  return nextvalues.reduce(reducer);
+const runProblem1 = values => {
+  return values.map(calc).reduce(reducer);
 };
 
-console.log(run(masses));
+const runProblem2 = values => {
+  return values
+    .map(calc)
+    .map(doItRecurrsiveLike)
+    .reduce(reducer);
+};
+
+console.log(runProblem1(masses)); // 3317659
+console.log(runProblem2(masses)); // 4973616
