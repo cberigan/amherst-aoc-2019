@@ -2,7 +2,7 @@
 
 namespace AdventOfCodeChallenges.C3
 {
-    public class ChallengePt2
+    public sealed class ChallengePt2
     {
         private readonly Challenge _c1;
 

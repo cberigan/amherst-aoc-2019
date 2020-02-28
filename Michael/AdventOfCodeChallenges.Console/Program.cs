@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AdventOfCodeChallenges.Console
+﻿namespace AdventOfCodeChallenges.Console
 {
     public class Program
     {

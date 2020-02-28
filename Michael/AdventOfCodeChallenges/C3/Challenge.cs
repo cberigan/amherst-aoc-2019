@@ -1,13 +1,11 @@
 ﻿using MoreLinq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using static AdventOfCodeChallenges.C3.Challenge.OpCode;
 
 namespace AdventOfCodeChallenges.C3
 {
-    public class Challenge
+    public sealed class Challenge
     {
         public static readonly int[] Inputs =
         {
@@ -19,7 +17,7 @@ namespace AdventOfCodeChallenges.C3
             var arg = inputs ?? Inputs;
             int[] copy = new int[arg.Length];
             Array.Copy(arg, 0, copy, 0, arg.Length);
-            
+
             foreach (var (op, first, second, target) in
                 copy.Window(4)
                     .Select(x => ((OpCode)x[0], x[1], x[2], x[3]))
@@ -36,7 +34,7 @@ namespace AdventOfCodeChallenges.C3
 
             return copy[0];
         }
-        
+
 
         public enum OpCode
         {
