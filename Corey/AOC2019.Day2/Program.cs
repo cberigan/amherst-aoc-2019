@@ -46,14 +46,8 @@ namespace AOC2019.Day2
                 var second = codes[codes[i + 2]];
                 var output = codes[i + 3];
 
-                if (op == 1)
-                {
-                    codes[output] = first + second;
-                }
-                else if (op == 2)
-                {
-                    codes[output] = first * second;
-                }
+                if (op == 1) codes[output] = first + second;
+                else if (op == 2) codes[output] = first * second;
             }
 
             return codes[0];
