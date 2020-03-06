@@ -1,35 +1,52 @@
-﻿using System.Linq;
+﻿using AdventOfCodeChallenges.Core;
+using MoreLinq;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 
 namespace AdventOfCodeChallenges.C3
 {
     public sealed class ChallengePt2
     {
-        private readonly Challenge _c1;
+        private readonly ChallengePt1 _c1;
 
         public ChallengePt2()
         {
-            _c1 = new Challenge();
+            _c1 = new ChallengePt1();
         }
 
-        public int Run()
+        public double Run(string path1 = null, string path2 = null)
         {
-            var originalInputs = Challenge.Inputs;
-            var possibleAlterations = from i in Enumerable.Range(0, 99)
-                                      from j in Enumerable.Range(0, 99)
-                                      select (i, j);
+            var wirePath1 = path1 == null ? ChallengePt1.Wire1Paths : ChallengePt1.ParsePaths(path1);
+            var wirePath2 = path2 == null ? ChallengePt1.Wire2Paths : ChallengePt1.ParsePaths(path2);
 
-            const int findValue = 19690720;
+            var (wireLines1, wireLines2) = _c1.GetLines(wirePath1, wirePath2);
 
-            return possibleAlterations.Select(alt =>
-                {
-                    originalInputs[1] = alt.i;
-                    originalInputs[2] = alt.j;
+            var withSteps1 = GetLinesWithSteps(wireLines1);
+            var withSteps2 = GetLinesWithSteps(wireLines2);
 
-                    return (alt, res: _c1.Run(originalInputs));
-                })
-                .Where(x => x.res == findValue)
-                .Select(x => 100 * x.alt.i + x.alt.j)
-                .Single();
+            var query = from a in withSteps1
+                        from b in withSteps2
+                        let intersect = a.line.Intersects(b.line)
+                        where intersect.intersects && intersect.point != new Point()
+                        let aclipped = a.line.ClipAt(intersect.point)
+                        let bclipped = b.line.ClipAt(intersect.point)
+                        let intersects = (intersect.point, steps:a.steps - aclipped.distance + b.steps - bclipped.distance)  
+                        group intersects by intersect.point into ints
+                        select (ints.Key, steps: ints.Min(i => i.steps));
+
+            var best = query.Min(x => x.steps);
+            return best;
         }
+
+        private List<(Line line, int steps)> GetLinesWithSteps(IEnumerable<Line> l) =>
+            l.Aggregate(new List<(Line lines, int steps)>(ChallengePt1.Wire1Paths.Count) { (new Line(new Point(), new Point()), 0) },
+                (acc, curr) =>
+                {
+                    acc.Add((curr, acc.Last().steps + curr.Steps()));
+                    return acc;
+                });
     }
 }
