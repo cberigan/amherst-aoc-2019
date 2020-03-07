@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Core\" />
+    <Compile Remove="C2\ChallengePt2.cs" />
   </ItemGroup>
 
   <ItemGroup>
