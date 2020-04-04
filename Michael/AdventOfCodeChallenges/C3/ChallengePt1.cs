@@ -34,25 +34,25 @@ namespace AdventOfCodeChallenges.C3
             return res;
         }
 
-        public (IEnumerable<Line> wireLines1, IEnumerable<Line> wireLines2) GetLines(IEnumerable<Point> a, IEnumerable<Point> b) =>
+        public static (IEnumerable<Line> wireLines1, IEnumerable<Line> wireLines2) GetLines(IEnumerable<Point> a, IEnumerable<Point> b) =>
             (a.Window(2).Select(ps => new Line(ps[0], ps[1])), b.Window(2).Select(ps => new Line(ps[0], ps[1])));
 
         public static List<Point> ParsePaths(string s) => s.Split(',', StringSplitOptions.RemoveEmptyEntries).Aggregate(
-            new List<Point>(Wire1.Length / 5) { new Point() }, Parse);
+            new List<Point>(Wire1.Length / 4) { new Point() }, Parse);
 
         private static (char dir, int d) Parse(string s) => (s[0], int.Parse(s.AsSpan().Slice(1)));
 
         private static List<Point> Parse(List<Point> list, string curr)
         {
             var last = list.Last();
-            var diff = Parse(curr);
+            var (dir, d) = Parse(curr);
 
-            switch (diff.dir)
+            switch (dir)
             {
-                case 'R': last.Offset(diff.d, 0); break;
-                case 'U': last.Offset(0, diff.d); break;
-                case 'L': last.Offset(-diff.d, 0); break;
-                case 'D': last.Offset(0, -diff.d); break;
+                case 'R': last.Offset(d, 0); break;
+                case 'U': last.Offset(0, d); break;
+                case 'L': last.Offset(-d, 0); break;
+                case 'D': last.Offset(0, -d); break;
                 default: throw new Exception("wat");
             }
 

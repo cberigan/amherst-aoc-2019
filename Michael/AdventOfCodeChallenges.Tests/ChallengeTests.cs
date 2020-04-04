@@ -60,5 +60,17 @@ namespace AdventOfCodeChallenges.Tests
 
             Assert.Equal(expected, fewestCombinedSteps);
         }
+
+        [Theory]
+        [InlineData(111111, false)]
+        [InlineData(223450, false)]
+        [InlineData(123789, false)]
+        [InlineData(123444, false)]
+        [InlineData(111122, true)]
+        public void Challenge4Tests(int i, bool expected)
+        {
+            var c4 = new C4.Challenge.Pt2().Run(i..(i + 1));
+            Assert.Equal(expected, c4 == 1);
+        }
     }
 }

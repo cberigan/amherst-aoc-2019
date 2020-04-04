@@ -10,19 +10,12 @@ namespace AdventOfCodeChallenges.C3
 {
     public sealed class ChallengePt2
     {
-        private readonly ChallengePt1 _c1;
-
-        public ChallengePt2()
-        {
-            _c1 = new ChallengePt1();
-        }
-
         public double Run(string path1 = null, string path2 = null)
         {
             var wirePath1 = path1 == null ? ChallengePt1.Wire1Paths : ChallengePt1.ParsePaths(path1);
             var wirePath2 = path2 == null ? ChallengePt1.Wire2Paths : ChallengePt1.ParsePaths(path2);
 
-            var (wireLines1, wireLines2) = _c1.GetLines(wirePath1, wirePath2);
+            var (wireLines1, wireLines2) = ChallengePt1.GetLines(wirePath1, wirePath2);
 
             var withSteps1 = GetLinesWithSteps(wireLines1);
             var withSteps2 = GetLinesWithSteps(wireLines2);
