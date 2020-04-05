@@ -33,5 +33,32 @@ namespace AdventOfCodeChallenges.Core
             }
             yield return l;
         }
+
+        public static IEnumerable<List<T>> Split<T>(this IEnumerable<T> source, Func<T, T, bool> split)
+        {
+            var l = new List<T>();
+
+            var enu = source.GetEnumerator();
+            if (!enu.MoveNext()) yield break;
+
+            T acc = enu.Current;
+            while (enu.MoveNext())
+            {
+                if (split(acc, enu.Current))
+                {
+                    yield return new List<T>(l);
+                    l.Clear();
+                }
+            }
+            yield return l;
+        }
+
+        /// <summary>
+        /// Returns an enumeration of all values contained in a Range.
+        /// </summary>
+        public static IEnumerable<int> Sequence(this Range range) {
+            (int start, int end) = (range.Start.Value, range.End.Value);
+            return Enumerable.Range(start, end - start);
+        }
     }
 }

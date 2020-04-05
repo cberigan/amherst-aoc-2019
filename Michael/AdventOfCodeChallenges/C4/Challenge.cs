@@ -39,6 +39,22 @@ namespace AdventOfCodeChallenges.C4
             }
         }
 
+        public class Iter2
+        {
+            public int Run(Range? range = null) =>
+                (range ?? Range).Sequence()
+                    .AsParallel()
+                    .Count(i =>
+                        HasConsecutiveDigits(i) &&
+                        HasNoDecreasingDigits(i) &&
+                        AnExplicitPairExists2(i));
+
+            private bool AnExplicitPairExists2(int i) =>
+                new IndexableNumber(i).DigitsBase10()
+                    .Split((first, second) => first != second)
+                    .Any(l => l.Count == 2);
+        }
+
         private static bool HasConsecutiveDigits(int i) =>
             new IndexableNumber(i).DigitsBase10().Window2().Any(t => t.Item1 == t.Item2);
 
