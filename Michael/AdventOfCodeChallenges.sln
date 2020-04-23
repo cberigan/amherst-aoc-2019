@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCodeChallenges", "AdventOfCodeChallenges\AdventOfCodeChallenges.csproj", "{3C2331E2-EDA8-4D52-80DC-96D296A5B146}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCodeChallenges", "AdventOfCodeChallenges\AdventOfCodeChallenges.csproj", "{3C2331E2-EDA8-4D52-80DC-96D296A5B146}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCodeChallenges.Tests", "AdventOfCodeChallenges.Tests\AdventOfCodeChallenges.Tests.csproj", "{C6210D30-1CAC-4855-991A-0A0123D3ABAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCodeChallenges.Tests", "AdventOfCodeChallenges.Tests\AdventOfCodeChallenges.Tests.csproj", "{C6210D30-1CAC-4855-991A-0A0123D3ABAD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCodeChallenges.Console", "AdventOfCodeChallenges.Console\AdventOfCodeChallenges.Console.csproj", "{D0E14F74-E031-4D66-A27E-24D6C6F38348}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCodeChallenges.Console", "AdventOfCodeChallenges.Console\AdventOfCodeChallenges.Console.csproj", "{D0E14F74-E031-4D66-A27E-24D6C6F38348}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCodeChallenges.Benchmark", "AdventOfCodeChallenges.Benchmark\AdventOfCodeChallenges.Benchmark.csproj", "{C794C485-F98B-4D38-9195-2CA854F13930}"
 EndProject

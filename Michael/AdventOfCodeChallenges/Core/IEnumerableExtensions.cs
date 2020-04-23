@@ -42,6 +42,7 @@ namespace AdventOfCodeChallenges.Core
             if (!enu.MoveNext()) yield break;
 
             T acc = enu.Current;
+            l.Add(acc);
             while (enu.MoveNext())
             {
                 if (split(acc, enu.Current))
@@ -49,6 +50,32 @@ namespace AdventOfCodeChallenges.Core
                     yield return new List<T>(l);
                     l.Clear();
                 }
+                else
+                    l.Add(acc);
+                acc = enu.Current;
+            }
+            yield return l;
+        }
+
+        public static IEnumerable<List<T>> Split<T>(this IEnumerable<T> source, Func<T, T, IReadOnlyList<T>, bool> split)
+        {
+            var l = new List<T>();
+
+            var enu = source.GetEnumerator();
+            if (!enu.MoveNext()) yield break;
+
+            T acc = enu.Current;
+            l.Add(acc);
+            while (enu.MoveNext())
+            {
+                if (split(acc, enu.Current, l))
+                {
+                    yield return new List<T>(l);
+                    l.Clear();
+                }
+                
+                l.Add(enu.Current);
+                acc = enu.Current;
             }
             yield return l;
         }

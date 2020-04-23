@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using AdventOfCodeChallenges.C1;
 using AdventOfCodeChallenges.C2;
 using Xunit;
@@ -71,6 +72,19 @@ namespace AdventOfCodeChallenges.Tests
         {
             var c4 = new C4.Challenge.Pt2().Run(i..(i + 1));
             Assert.Equal(expected, c4 == 1);
+        }
+        
+        [Theory]
+        [InlineData("1002,4,3,4,33", 4, 99)]
+        [InlineData("1101,100,-1,4,0", 4, 99)]
+        [InlineData("1001,5,100,5,99,-1", 4, 99)]
+        [InlineData("3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9", 0, 3)]
+        //[InlineData("3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99",
+        //    0, 999)]
+        public void Challenge5Tests(string data, int position, int value)
+        {
+            var res = new C5.Challenge().Run(data.Split(",").Select(int.Parse).ToArray(),
+                ((int val, int[] memory, int outputVal) x) => Assert.Equal(value, x.memory[position]));
         }
     }
 }
