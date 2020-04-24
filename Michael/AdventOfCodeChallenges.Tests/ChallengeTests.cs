@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using AdventOfCodeChallenges.C1;
 using AdventOfCodeChallenges.C2;
+using AdventOfCodeChallenges.C6;
+using AdventOfCodeChallenges.Core;
 using Xunit;
 
 namespace AdventOfCodeChallenges.Tests
@@ -86,5 +88,48 @@ namespace AdventOfCodeChallenges.Tests
             var res = new C5.Challenge().Run(data.Split(",").Select(int.Parse).ToArray(),
                 ((int val, int[] memory, int outputVal) x) => Assert.Equal(value, x.memory[position]));
         }
+
+        [Fact]
+        public void Challenge6_ParsesOrbits()
+        {
+            var parser = new OrbitParser();
+            var orbits = parser.Parse(_orbits);
+            var system = new OrbitalSystem(orbits);
+            var totalOrbitCounts = system.DirectAndIndirectOrbitCount;
+            Assert.Equal(42, totalOrbitCounts);
+        }
+
+        [Fact]
+        public void Challenge6_Pt2()
+        {
+            var c = new C6.Challenge.Pt2();
+            var res = c.Run(c6p2);
+            Assert.Equal(4, res);
+        }
+
+        private const string _orbits = @"COM)B
+B)C
+C)D
+D)E
+E)F
+B)G
+G)H
+D)I
+E)J
+J)K
+K)L";
+        private const string c6p2 = @"COM)B
+B)C
+C)D
+D)E
+E)F
+B)G
+G)H
+D)I
+E)J
+J)K
+K)L
+K)YOU
+I)SAN";
     }
 }
