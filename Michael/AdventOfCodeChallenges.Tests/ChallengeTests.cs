@@ -3,6 +3,7 @@ using System.Linq;
 using AdventOfCodeChallenges.C1;
 using AdventOfCodeChallenges.C2;
 using AdventOfCodeChallenges.C6;
+using AdventOfCodeChallenges.C7;
 using AdventOfCodeChallenges.Core;
 using Xunit;
 
@@ -75,7 +76,7 @@ namespace AdventOfCodeChallenges.Tests
             var c4 = new C4.Challenge.Pt2().Run(i..(i + 1));
             Assert.Equal(expected, c4 == 1);
         }
-        
+
         [Theory]
         [InlineData("1002,4,3,4,33", 4, 99)]
         [InlineData("1101,100,-1,4,0", 4, 99)]
@@ -105,6 +106,21 @@ namespace AdventOfCodeChallenges.Tests
             var c = new C6.Challenge.Pt2();
             var res = c.Run(c6p2);
             Assert.Equal(4, res);
+        }
+
+        [Theory]
+        [InlineData("3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0", 4, 3, 2, 1, 0, 43210, false)]
+        [InlineData("3,23,3,24,1002,24,10,24,1002,23,-1,23,101,5,23,23,1,24,23,23,4,23,99,0,0", 0, 1, 2, 3, 4, 54321, false)]
+        [InlineData("3,31,3,32,1002,32,10,32,1001,31,-2,31,1007,31,0,33,1002,33,7,33,1,33,31,31,1,32,31,31,4,31,99,0,0,0", 1, 0, 4, 3, 2, 65210, false)]
+        public void Challenge7Tests(string memory, int a, int b, int c, int d, int e, int expected, bool feedback)
+        {
+            var mem = memory.Split(",").Select(int.Parse).ToArray();
+            var setting = new PhaseSettings(a, b, c, d, e);
+            var con = new AmplifierController();
+
+            var res = con.Run(mem, setting, feedback);
+            Assert.Equal(expected, res);
+
         }
 
         private const string _orbits = @"COM)B

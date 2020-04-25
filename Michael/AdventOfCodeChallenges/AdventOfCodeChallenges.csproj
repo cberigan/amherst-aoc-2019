@@ -15,6 +15,7 @@
     <Compile Remove="C2\ChallengePt2.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Combinatorics" Version="1.1.0.19" />
     <PackageReference Include="morelinq" Version="3.3.2" />
   </ItemGroup>
 </Project>
