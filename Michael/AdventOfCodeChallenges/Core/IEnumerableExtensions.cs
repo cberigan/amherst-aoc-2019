@@ -19,6 +19,27 @@ namespace AdventOfCodeChallenges.Core
             }
         }
 
+        /// <summary>
+        /// Returns non-overlapping windows of the source.
+        /// </summary>
+        public static IEnumerable<IList<T>> Split<T>(this IEnumerable<T> source, int count)
+        {
+            var l = new List<T>();
+            int i = 0;
+            foreach (var item in source)
+            {
+                if (i == count)
+                {
+                    yield return new List<T>(l);
+                    l.Clear();
+                    i = 0;
+                }
+                l.Add(item);
+                i++;
+            }
+            yield return l;
+        }
+
         public static IEnumerable<List<T>> NotStupidSplit<T>(this IEnumerable<T> source, Func<T, bool> split)
         {
             var l = new List<T>();
@@ -79,6 +100,8 @@ namespace AdventOfCodeChallenges.Core
             }
             yield return l;
         }
+
+        
 
         /// <summary>
         /// Returns an enumeration of all values contained in a Range.
