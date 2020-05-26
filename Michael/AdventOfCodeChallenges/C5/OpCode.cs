@@ -11,6 +11,7 @@
         JumpIfFalse = 6,
         LT = 7,
         E = 8,
+        AdjustRelativeBase = 9,
         Halt = 99
     }
 

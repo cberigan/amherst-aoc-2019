@@ -4,7 +4,7 @@
     {
         public static void Main(string[] args)
         {
-            var result = new C8.Challenge.Pt2().Run();
+            var result = new C9.Challenge.Pt2().Run();
             System.Console.WriteLine(result);
             System.Console.ReadLine();
         }
