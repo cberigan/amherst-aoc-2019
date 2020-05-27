@@ -4,6 +4,7 @@ using AdventOfCodeChallenges.C1;
 using AdventOfCodeChallenges.C2;
 using AdventOfCodeChallenges.C6;
 using AdventOfCodeChallenges.C7;
+using AdventOfCodeChallenges.C10;
 using AdventOfCodeChallenges.Core;
 using Xunit;
 
@@ -120,8 +121,155 @@ namespace AdventOfCodeChallenges.Tests
 
             var res = con.Run(mem, setting, feedback);
             Assert.Equal(expected, res);
+        }
+
+        [Fact]
+        public void Challenge9CorrectlyParsesMap()
+        {
+            var expected = new bool[,]
+            {
+                {false, true, false, false, true },
+                {false, false, false, false, false },
+                {true, true, true,true, true },
+                {false, false,false,false,true },
+                {false,false,false,true,true }
+            };
+
+            var result = C10.Challenge.Parse(C9Test1Input);
+            for (int y = 0; y <= expected.GetUpperBound(0); y++)
+            {
+                for (int x = 0; x <= expected.GetUpperBound(1); x++)
+                {
+                    Assert.Equal(expected[y, x], result[y, x]);
+                }
+            }
+        }
+
+        [Fact]
+        public void Challenge9_Returns8AsteroidsSpottedAt_3_4()
+        {
+            var map = C10.Challenge.Parse(C9Test1Input);
+            var coordinateMap = new CoordinateMap(map);
+            var count = coordinateMap.VisibleAsteroids(new Coordinate(3, 4)).Count();
+
+            Assert.Equal(8, count);
+        }
+
+        [Fact]
+        public void Challenge9_ReturnsCorrectNumberOfVisibleAsteroids()
+        {
+            var map = C10.Challenge.Parse(C9Test1Input);
+            var coordinateMap = new CoordinateMap(map);
+
+            var asteroidLocations = coordinateMap.AsteroidLocations;
+            var expected = new (Coordinate c, int count)[]
+            {
+                 ((1,0), 7),
+                 ((4, 0), 7),
+                 ((0,2), 6),
+                 ((1,2), 7),
+                 ((2,2), 7),
+                 ((3,2), 7),
+                 ((4,2), 5),
+                 ((4,3), 7),
+                 ((3,4), 8),
+                 ((4,4), 7)
+            };
+
+            var result = asteroidLocations.Select(l =>
+                    (l, coordinateMap.VisibleAsteroids(l).Count()))
+                .ToDictionary(x => x.l, x => x.Item2);
+
+            foreach (var exp in expected)
+                Assert.Equal(exp.count, result[exp.c]);
+        }
+
+        [Fact]
+        public void AnotherC9Test()
+        {
+            var map = C10.Challenge.Parse(C9Test2Input);
+            var coordinateMap = new CoordinateMap(map);
+            var res = coordinateMap.VisibleAsteroids((0, 1)).ToList();
+            var sorted = res
+                .OrderBy(x => x.X).ToList();
 
         }
+
+        [Theory]
+        [InlineData(C9Test1Input, 3, 4, 8)]
+        [InlineData(C9Test2Input, 5, 8, 33)]
+        [InlineData(C9Test3Input, 1, 2, 35)]
+        [InlineData(C9Test4Input, 6, 3, 41)]
+        [InlineData(C9Test5Input, 11, 13, 210)]
+        public void Challenge9Tests(string input, int expectedX, int expectedY, int count)
+        {
+            var result = new C10.Challenge.Pt1().Run(input);
+            var expected = (new Coordinate(expectedX, expectedY), count);
+
+            //Assert.Equal(expected, result);
+            Assert.Contains(expected.Item1, result.Values.SelectMany(v => v.Select(vv => vv.asteroid)));
+            //Assert.Equal(expected.count, result.Select(r => r.Value.First(v => v.asteroid == (expectedX, expectedY)).visibles.Count()).First());
+        }
+
+        private const string C9Test1Input = @".#..#
+.....
+#####
+....#
+...##";
+
+        private const string C9Test2Input = @"......#.#.
+#..#.#....
+..#######.
+.#.#.###..
+.#..#.....
+..#....#.#
+#..#....#.
+.##.#..###
+##...#..#.
+.#....####";
+
+        private const string C9Test3Input = @"#.#...#.#.
+.###....#.
+.#....#...
+##.#.#.#.#
+....#.#.#.
+.##..###.#
+..#...##..
+..##....##
+......#...
+.####.###.";
+
+        private const string C9Test4Input = @".#..#..###
+####.###.#
+....###.#.
+..###.##.#
+##.##.#.#.
+....###..#
+..#.#..#.#
+#..#.#.###
+.##...##.#
+.....#.#..";
+
+        private const string C9Test5Input = @".#..##.###...#######
+##.############..##.
+.#.######.########.#
+.###.#######.####.#.
+#####.##.#.##.###.##
+..#####..#.#########
+####################
+#.####....###.#.#.##
+##.#################
+#####.##.###..####..
+..######..##.#######
+####.##.####...##..#
+.#####..#.######.###
+##...#.##########...
+#.##########.#######
+.####.#.###.###.#.##
+....##.##.###..#####
+.#.#.###########.###
+#.#.#.#####.####.###
+###.##.####.##.#..##";
 
         private const string _orbits = @"COM)B
 B)C
