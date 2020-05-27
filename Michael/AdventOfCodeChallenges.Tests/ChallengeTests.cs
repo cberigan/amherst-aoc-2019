@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using AdventOfCodeChallenges.C1;
 using AdventOfCodeChallenges.C2;
 using AdventOfCodeChallenges.C6;
@@ -195,20 +197,26 @@ namespace AdventOfCodeChallenges.Tests
 
         }
 
-        [Theory]
-        [InlineData(C9Test1Input, 3, 4, 8)]
-        [InlineData(C9Test2Input, 5, 8, 33)]
-        [InlineData(C9Test3Input, 1, 2, 35)]
-        [InlineData(C9Test4Input, 6, 3, 41)]
-        [InlineData(C9Test5Input, 11, 13, 210)]
-        public void Challenge9Tests(string input, int expectedX, int expectedY, int count)
-        {
-            var result = new C10.Challenge.Pt1().Run(input);
-            var expected = (new Coordinate(expectedX, expectedY), count);
+        }
 
-            //Assert.Equal(expected, result);
-            Assert.Contains(expected.Item1, result.Values.SelectMany(v => v.Select(vv => vv.asteroid)));
-            //Assert.Equal(expected.count, result.Select(r => r.Value.First(v => v.asteroid == (expectedX, expectedY)).visibles.Count()).First());
+        [Theory]
+        [InlineData("109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99", "109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99")]
+        [InlineData("1102,34915192,34915192,7,4,7,99,0", "1219070632396864")]
+        [InlineData("104,1125899906842624,99", "1125899906842624")]
+        public void Challenge9Tests(string inputs, string expected)
+        {
+            var input = inputs.Split(',').Select(BigInteger.Parse).ToArray();
+            var cpu = new C9.IntCodeStateMachine(input, 1);
+            var outputs = new List<BigInteger>();
+            cpu.OnOutput += (_, v) => outputs.Add(v);
+            while (!cpu.IsHalted)
+            {
+                cpu.RunOnce();
+            }
+
+
+            var exp = expected.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(BigInteger.Parse).ToArray();
+            Assert.Equal(exp, outputs);
         }
 
         private const string C9Test1Input = @".#..#
