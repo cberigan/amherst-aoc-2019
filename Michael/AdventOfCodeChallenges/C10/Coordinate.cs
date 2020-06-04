@@ -39,6 +39,12 @@ namespace AdventOfCodeChallenges.C10
         public static bool operator !=(Coordinate left, Coordinate right) =>
             !(left == right);
 
+        internal double DistanceTo(Coordinate target)
+        {
+            var dist = target - this;
+            return Math.Sqrt(dist.X * dist.X + dist.Y * dist.Y);
+        }
+
         public override string ToString() => $"({X},{Y})";
 
         public static implicit operator Coordinate  ((int x, int y) t) => new Coordinate(t.x, t.y);

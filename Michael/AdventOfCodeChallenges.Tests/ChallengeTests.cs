@@ -126,7 +126,7 @@ namespace AdventOfCodeChallenges.Tests
         }
 
         [Fact]
-        public void Challenge9CorrectlyParsesMap()
+        public void Challenge10CorrectlyParsesMap()
         {
             var expected = new bool[,]
             {
@@ -137,7 +137,7 @@ namespace AdventOfCodeChallenges.Tests
                 {false,false,false,true,true }
             };
 
-            var result = C10.Challenge.Parse(C9Test1Input);
+            var result = C10.Challenge.Parse(C10Test1Input).map;
             for (int y = 0; y <= expected.GetUpperBound(0); y++)
             {
                 for (int x = 0; x <= expected.GetUpperBound(1); x++)
@@ -148,20 +148,20 @@ namespace AdventOfCodeChallenges.Tests
         }
 
         [Fact]
-        public void Challenge9_Returns8AsteroidsSpottedAt_3_4()
+        public void Challenge10_Returns8AsteroidsSpottedAt_3_4()
         {
-            var map = C10.Challenge.Parse(C9Test1Input);
-            var coordinateMap = new CoordinateMap(map);
+            var map = C10.Challenge.Parse(C10Test1Input);
+            var coordinateMap = new CoordinateMap(map.map);
             var count = coordinateMap.VisibleAsteroids(new Coordinate(3, 4)).Count();
 
             Assert.Equal(8, count);
         }
 
         [Fact]
-        public void Challenge9_ReturnsCorrectNumberOfVisibleAsteroids()
+        public void Challenge10_ReturnsCorrectNumberOfVisibleAsteroids()
         {
-            var map = C10.Challenge.Parse(C9Test1Input);
-            var coordinateMap = new CoordinateMap(map);
+            var map = C10.Challenge.Parse(C10Test1Input);
+            var coordinateMap = new CoordinateMap(map.map);
 
             var asteroidLocations = coordinateMap.AsteroidLocations;
             var expected = new (Coordinate c, int count)[]
@@ -187,15 +187,23 @@ namespace AdventOfCodeChallenges.Tests
         }
 
         [Fact]
-        public void AnotherC9Test()
+        public void Challenge10Pt2_ReturnsDestroyedAsteroidsAtCorrectIndices()
         {
-            var map = C10.Challenge.Parse(C9Test2Input);
-            var coordinateMap = new CoordinateMap(map);
-            var res = coordinateMap.VisibleAsteroids((0, 1)).ToList();
-            var sorted = res
-                .OrderBy(x => x.X).ToList();
+            (int x, int y, int order)[] expected = {
+                (11,12,1), (12,1,2), (12,2,3),(12,8,10),(16,0,20),
+                (16,9,50), (10,16,100), (9,6,199), (8,2, 200), (10,9, 201), 
+                (11,1,299)};
 
-        }
+            var res = new C10.Challenge.Pt2().RunImpl(C10Pt2Input, (11,13))
+                        .Select((r,i) => (r.target.X, r.target.Y, i: i + 1));
+
+            foreach(var x in from e in expected
+                             join r in res on (e.x,e.y) equals (r.X, r.Y)
+                             select (e, r.i))
+            {
+                Assert.Equal(x.e.order, x.i);
+            }
+
 
         }
 
@@ -219,13 +227,15 @@ namespace AdventOfCodeChallenges.Tests
             Assert.Equal(exp, outputs);
         }
 
-        private const string C9Test1Input = @".#..#
+
+
+        private const string C10Test1Input = @".#..#
 .....
 #####
 ....#
 ...##";
 
-        private const string C9Test2Input = @"......#.#.
+        private const string C10Test2Input = @"......#.#.
 #..#.#....
 ..#######.
 .#.#.###..
@@ -236,7 +246,7 @@ namespace AdventOfCodeChallenges.Tests
 ##...#..#.
 .#....####";
 
-        private const string C9Test3Input = @"#.#...#.#.
+        private const string C10Test3Input = @"#.#...#.#.
 .###....#.
 .#....#...
 ##.#.#.#.#
@@ -247,7 +257,7 @@ namespace AdventOfCodeChallenges.Tests
 ......#...
 .####.###.";
 
-        private const string C9Test4Input = @".#..#..###
+        private const string C10Test4Input = @".#..#..###
 ####.###.#
 ....###.#.
 ..###.##.#
@@ -258,7 +268,28 @@ namespace AdventOfCodeChallenges.Tests
 .##...##.#
 .....#.#..";
 
-        private const string C9Test5Input = @".#..##.###...#######
+        private const string C10Test5Input = @".#..##.###...#######
+##.############..##.
+.#.######.########.#
+.###.#######.####.#.
+#####.##.#.##.###.##
+..#####..#.#########
+####################
+#.####....###.#.#.##
+##.#################
+#####.##.###..####..
+..######..##.#######
+####.##.####...##..#
+.#####..#.######.###
+##...#.##########...
+#.##########.#######
+.####.#.###.###.#.##
+....##.##.###..#####
+.#.#.###########.###
+#.#.#.#####.####.###
+###.##.####.##.#..##";
+
+        private const string C10Pt2Input = @".#..##.###...#######
 ##.############..##.
 .#.######.########.#
 .###.#######.####.#.

@@ -10,7 +10,7 @@ using System.Text;
 namespace AdventOfCodeChallenges.Core.Collections
 {
     /// <summary>
-    /// A list that allows writing to arbitrary positions.
+    /// A list that allows writing to arbitrary positions. Also just barely enough to get a job done.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class BigList<T> : IList<T>
@@ -85,7 +85,11 @@ namespace AdventOfCodeChallenges.Core.Collections
 
                 if (bucket.Count < _bucketSize)
                     break;
-
+                else
+                {
+                    bucket = new List<T>();
+                    _buckets.Add(bucket);
+                }
             }
         }
 
