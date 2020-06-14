@@ -7,7 +7,7 @@ namespace AdventOfCodeChallenges.Console
     {
         public static void Main(string[] args)
         {
-            var result = new C11.Challenge.Pt2().Run();
+            var result = new C12.Challenge.Pt2().RunUntilVelocitiesAreZeroAndDoubleIters();
 
             WriteLine(result);
             ReadLine();
