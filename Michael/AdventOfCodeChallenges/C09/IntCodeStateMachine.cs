@@ -122,7 +122,7 @@ namespace AdventOfCodeChallenges.C9
             {
                 Add => 3,
                 Mul => 3,
-                Write => 0,
+                Write => 1,
                 OpCode.Read => 1,
                 OpCode.Halt => 1,
                 JumpIfTrue => 2,
