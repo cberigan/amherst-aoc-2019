@@ -8,7 +8,7 @@ using System.Text;
 
 namespace AdventOfCodeChallenges.Core
 {
-    public sealed class Tree<T> : IEnumerable<TreeNode<T>>
+    public class Tree<T> : IEnumerable<TreeNode<T>>
     {
         private readonly HashSet<TreeNode<T>> _items;
 
@@ -62,6 +62,8 @@ namespace AdventOfCodeChallenges.Core
                 outerNode._parent = this;
             this._parent?.AddChild(outerNode);
         }
+
+        public void AddChild(T element) => AddChild(new TreeNode<T>(element));
 
         public override bool Equals(object obj)
         {

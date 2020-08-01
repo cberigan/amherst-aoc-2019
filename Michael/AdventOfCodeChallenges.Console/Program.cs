@@ -7,7 +7,7 @@ namespace AdventOfCodeChallenges.Console
     {
         public static void Main(string[] args)
         {
-            var result = new C13.Challenge.Pt2().Run();
+            var result = new C14.Challenge.Pt2().Run();
 
             WriteLine(result);
             ReadLine();
