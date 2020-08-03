@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using AdventOfCodeChallenges.C1;
-using AdventOfCodeChallenges.C2;
 using AdventOfCodeChallenges.C6;
 using AdventOfCodeChallenges.C7;
 using AdventOfCodeChallenges.C10;

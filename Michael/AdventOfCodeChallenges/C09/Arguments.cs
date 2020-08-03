@@ -1,10 +1,7 @@
 ﻿using AdventOfCodeChallenges.C5;
 using AdventOfCodeChallenges.Core.Collections;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
-using System.Text;
 
 namespace AdventOfCodeChallenges.C9
 {

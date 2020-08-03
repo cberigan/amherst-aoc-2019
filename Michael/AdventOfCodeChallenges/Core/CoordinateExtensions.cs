@@ -1,7 +1,4 @@
 ﻿using AdventOfCodeChallenges.C10;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AdventOfCodeChallenges.Core
 {

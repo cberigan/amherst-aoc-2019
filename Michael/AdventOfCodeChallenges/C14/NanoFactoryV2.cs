@@ -1,12 +1,4 @@
-﻿using MoreLinq;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-namespace AdventOfCodeChallenges.C14
+﻿namespace AdventOfCodeChallenges.C14
 {
     //public class NanoFactoryV2
     //{

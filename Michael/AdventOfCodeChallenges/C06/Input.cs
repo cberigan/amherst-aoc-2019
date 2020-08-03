@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AdventOfCodeChallenges.C6
+﻿namespace AdventOfCodeChallenges.C6
 {
     sealed partial class Challenge
     {

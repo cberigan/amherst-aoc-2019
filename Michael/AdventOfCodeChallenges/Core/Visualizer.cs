@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using static AdventOfCodeChallenges.C11.Challenge;
 
 namespace AdventOfCodeChallenges.Core

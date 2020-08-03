@@ -1,7 +1,6 @@
 ﻿using AdventOfCodeChallenges.C6;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AdventOfCodeChallenges.Core
 {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace AdventOfCodeChallenges.C7
+﻿namespace AdventOfCodeChallenges.C7
 {
     public class AmplifierController
     {

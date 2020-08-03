@@ -1,6 +1,4 @@
 ﻿using AdventOfCodeChallenges.Core;
-using System;
-using System.Text;
 
 namespace AdventOfCodeChallenges.C6
 {
