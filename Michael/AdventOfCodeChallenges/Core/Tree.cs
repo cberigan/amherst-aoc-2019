@@ -1,10 +1,8 @@
-﻿using AdventOfCodeChallenges.C6;
-using MoreLinq;
+﻿using MoreLinq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AdventOfCodeChallenges.Core
 {

@@ -1,25 +1,24 @@
-﻿using AdventOfCodeChallenges.C5;
-using AdventOfCodeChallenges.Core.Collections;
-using System;
-using System.Numerics;
+﻿using System;
+using System.Collections.Generic;
 
-namespace AdventOfCodeChallenges.C9
+namespace AdventOfCodeChallenges.Core.Cpu
 {
+
     readonly struct Arguments
     {
-        public delegate BigInteger ReadValueDelegate(BigInteger index, BigList<BigInteger> memory, ParameterModeEnum mode);
+        public delegate int ReadValueDelegate(long index, List<long> memory, ParameterModeEnum mode);
 
-        public BigInteger Arg1 { get; }
-        public BigInteger Arg2 { get; }
-        public BigInteger Arg3 { get; }
+        public int Arg1 { get; }
+        public int Arg2 { get; }
+        public int Arg3 { get; }
+               
+        public int Arg1Index { get; }
+        public int Arg2Index => Arg1Index + 1;
+        public int Arg3Index => Arg1Index + 2;
+               
+        public int TargetIndex { get; }
 
-        public BigInteger Arg1Index { get; }
-        public BigInteger Arg2Index => Arg1Index + 1;
-        public BigInteger Arg3Index => Arg1Index + 2;
-
-        public BigInteger TargetIndex { get; }
-
-        public Arguments(BigList<BigInteger> memory, Instruction ins, int opCodeArgLength, BigInteger argStartIndex, BigInteger relativeBaseOffset)
+        public Arguments(List<int> memory, Instruction ins, int opCodeArgLength, int argStartIndex, int relativeBaseOffset)
         {
             this.Arg1Index = argStartIndex;
             if (ins.Op == OpCode.Halt)
@@ -50,7 +49,7 @@ namespace AdventOfCodeChallenges.C9
             };
         }
 
-        private static BigInteger ReadValue(BigInteger index, BigInteger relativeBaseOffset, BigList<BigInteger> memory, ParameterModeEnum mode)
+        private static int ReadValue(int index, int relativeBaseOffset, List<int> memory, ParameterModeEnum mode)
         {
             return mode switch
             {

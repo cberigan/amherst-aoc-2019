@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Text;
-
-namespace AdventOfCodeChallenges.C12
+﻿namespace AdventOfCodeChallenges.C12
 {
     public class PlanetaryBody
     {

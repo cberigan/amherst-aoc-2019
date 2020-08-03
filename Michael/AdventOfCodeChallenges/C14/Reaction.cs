@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AdventOfCodeChallenges.C14
+﻿namespace AdventOfCodeChallenges.C14
 {
     [System.Diagnostics.DebuggerDisplay("Target = {Output.Ingredient}")]
     public class Reaction

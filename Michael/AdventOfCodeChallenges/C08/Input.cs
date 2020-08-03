@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AdventOfCodeChallenges.C8
+﻿namespace AdventOfCodeChallenges.C8
 {
     public partial class Challenge
     {

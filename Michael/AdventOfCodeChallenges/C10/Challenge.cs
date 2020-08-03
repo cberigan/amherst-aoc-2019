@@ -1,11 +1,8 @@
-﻿using AdventOfCodeChallenges.Core;
-using MoreLinq;
+﻿using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Xml.Linq;
 
 namespace AdventOfCodeChallenges.C10
 {
