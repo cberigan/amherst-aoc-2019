@@ -1,7 +1,4 @@
-﻿using System.Numerics;
-using AdventOfCodeChallenges.C5;
-
-namespace AdventOfCodeChallenges.Core.Cpu
+﻿namespace AdventOfCodeChallenges.Core.Cpu
 {
     public readonly struct Instruction
     {

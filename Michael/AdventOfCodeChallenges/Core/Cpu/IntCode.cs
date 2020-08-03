@@ -19,7 +19,7 @@ namespace AdventOfCodeChallenges.Core.Cpu
         public bool IsAtEnd => CurrentOffset >= Memory.Count;
         public int RelativeBaseOffset = 0;
 
-        public event EventHandler<long> OnOutput;
+        public event EventHandler<int> OnOutput;
 
         public IntCodeStateMachine(IEnumerable<int> memory, int? phase = null)
         {
@@ -49,7 +49,11 @@ namespace AdventOfCodeChallenges.Core.Cpu
                 RunOnce();
         }
 
-        public void Halt() => CurrentOffset = Memory.Count;
+        public void Halt() 
+        {
+            CurrentOffset = Memory.Count;
+            _halted = true;
+        }
 
         private Instruction Read() => new Instruction(Memory[CurrentOffset]);
 
