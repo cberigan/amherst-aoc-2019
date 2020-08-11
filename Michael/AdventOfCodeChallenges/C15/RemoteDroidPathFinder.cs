@@ -6,10 +6,13 @@ namespace AdventOfCodeChallenges.C15
     internal class RemoteDroidPathFinder
     {
         public event EventHandler<int> ShortestPathFound;
+        public event EventHandler<(int count, PathFindingMap map)> ShortestPathFound2;
+
+        private PathFindingMap pathFinding;
 
         public RemoteDroidPathFinder(RepairDroid repairDroid, RemoteControlProgram rcp)
         {
-            var pathFinding = new PathFindingMap();
+            pathFinding = new PathFindingMap();
             pathFinding.Add(Coordinate.Origin);
 
             Coordinate oxygenTank = Coordinate.Origin;
@@ -31,6 +34,7 @@ namespace AdventOfCodeChallenges.C15
                         Console.SetCursorPosition(0, 3);
                         Console.WriteLine("shortest path is {0}", shortestPath);
                         ShortestPathFound?.Invoke(this, shortestPath);
+                        ShortestPathFound2?.Invoke(this, (shortestPath, pathFinding));
                     }
                     secondTimeAtOrigin = true;
                 }
@@ -42,5 +46,7 @@ namespace AdventOfCodeChallenges.C15
                 oxygenTank = coord;
             };
         }
+
+        public int MinutesToFill(Coordinate coord) => pathFinding.MinutesToFill(coord);
     }
 }

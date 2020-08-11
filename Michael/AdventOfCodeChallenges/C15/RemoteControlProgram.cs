@@ -18,7 +18,7 @@ namespace AdventOfCodeChallenges.C15
 
         public event EventHandler<Coordinate> FoundOxygenSystem;
 
-        public RemoteControlProgram(RepairDroid repairDroid, ICommandInput commandInput, ConsoleView consoleView)
+        public RemoteControlProgram(RepairDroid repairDroid, ICommandInput commandInput, IView consoleView)
         {
             _relativePosition = Coordinate.Origin;
             _lastPosition = _relativePosition;
