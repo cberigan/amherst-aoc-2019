@@ -132,34 +132,22 @@ namespace AdventOfCodeChallenges.C16
             {
                 var iterationPattern = new RepeatingDigits(pattern, i + 1);
 
-                var tmpList = new List<int>(iterationPattern.Length);
-                for (int j = 0; j < iterationPattern.Length; j++)
+                var enu = iterationPattern.GetEnumerator();
+                for (int s = 0; s < digitsToSkip; s++) // skip the first element only the first time
                 {
-                    var v = iterationPattern[j];
-                    tmpList.Add(v);
+                    enu.MoveNext();
                 }
 
-                var multiplicationPattern = MoreEnumerable.Generate(
-                        tmpList,
-                        acc =>
-                        {
-                            for (int i = 0; i < iterationPattern.Length; i++)
-                            {
-                                acc.Add(iterationPattern[i]);
-                            }
-                            return acc;
-                        })
-                    .SkipWhile(l => l.Count < inputSignal.Length + 1)
-                    .First()
-                    .Skip(digitsToSkip)
-                    .Take(inputSignal.Length);
-
                 int sum = 0; int k = 0;
-                foreach (var b in multiplicationPattern)
+                while (k < inputSignal.Length)
                 {
                     var a = inputSignal[k];
+                    var b = enu.Current;
                     sum += a * b;
                     k++;
+
+                    if (!enu.MoveNext())
+                        enu = iterationPattern.GetEnumerator();
                 }
 
                 var onesDigit = (byte)new IndexableNumber(sum)[0]; // only keep the position in the 1s place

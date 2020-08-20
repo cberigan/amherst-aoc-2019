@@ -37,7 +37,7 @@ namespace AdventOfCodeChallenges.C16
             private int _index, _repeated;
 
             public Enumerator(RepeatingDigits repeatingDigits) => 
-                (_source, _index, _repeated) = (repeatingDigits, 0,0);
+                (_source, _index, _repeated) = (repeatingDigits, 0,1);
 
             public int Current => _source._source[_index];
 
@@ -53,11 +53,11 @@ namespace AdventOfCodeChallenges.C16
                     _repeated++;
                 else
                 {
-                    _repeated = 0;
+                    _repeated = 1;
                     _index++;
                 }
 
-                if (_index * _source._repeats + _repeated < _source.Length)
+                if (_index * _source._repeats + _repeated -1 < _source.Length)
                     return true;
                 return false;
             }
