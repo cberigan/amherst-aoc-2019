@@ -9,6 +9,8 @@ namespace AdventOfCodeChallenges.C15
     {
         public class Pt1
         {
+            // find a path to a point in an unknown environment. Then find the shortest path
+            // from the origin to that point.
             public int Run(string input = Input)
             {
                 var memory = input.Split(',').Select(int.Parse);
