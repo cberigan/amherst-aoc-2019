@@ -12,9 +12,9 @@ namespace AdventOfCodeChallenges.Core
         public int Length => (int)Math.Floor(Math.Log10(_i) + 1);
 
         /// <summary>
-        /// Indexes start at 1!
+        /// Indexes start at 0! Does not return the sign. Always returns a positive number.
         /// </summary>
-        public int this[int index] => _i / (int)Math.Pow(10, Length - index) % 10;
+        public int this[int index] => Math.Abs((_i / (int)Math.Pow(10, index)) % 10);
 
         public IEnumerable<int> DigitsBase10()
         {
