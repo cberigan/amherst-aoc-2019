@@ -7,64 +7,63 @@ namespace AdventOfCodeChallenges.C16
 {
     public struct RepeatingDigits
     {
-        private readonly int[] _source;
+        private readonly sbyte[] _source;
         private readonly int _repeats;
 
-        public int Length { get; }
+        public RepeatingDigits(sbyte[] source, int timesToRepeat) => 
+            (_source, _repeats) = (source, timesToRepeat);
 
 
-        public RepeatingDigits(int[] source, int timesToRepeat) => 
-            (_source, _repeats, Length) = (source, timesToRepeat, source.Length * timesToRepeat);
-
-
-        public int this[int i]
+        public sbyte this[int i]
         {
             get
             {
-                if (i > Length) throw new ArgumentOutOfRangeException("index");
                 var x = _source[i / _repeats % _source.Length];
                 return x;
             }
         }
 
 
-        public Enumerator GetEnumerator() => new Enumerator(this);
+        //public Enumerator GetEnumerator() => new Enumerator(this);
 
 
-        public struct Enumerator : IEnumerator<int>
-        {
-            private RepeatingDigits _source;
-            private int _index, _repeated;
+        //public struct Enumerator : IEnumerator<int>
+        //{
+        //    private RepeatingDigits _source;
+        //    private int _index, _repeated, _current;
 
-            public Enumerator(RepeatingDigits repeatingDigits) => 
-                (_source, _index, _repeated) = (repeatingDigits, 0,1);
+        //    public Enumerator(RepeatingDigits repeatingDigits) => 
+        //        (_source, _index, _repeated, _current) = (repeatingDigits, 0,1,0);
 
-            public int Current => _source._source[_index];
+        //    public int Current => _current;
 
-            object IEnumerator.Current => Current;
+        //    object IEnumerator.Current => Current;
 
-            public void Dispose()
-            {
-            }
+        //    public void Dispose()
+        //    {
+        //    }
 
-            public bool MoveNext()
-            {
-                if (_repeated < _source._repeats)
-                    _repeated++;
-                else
-                {
-                    _repeated = 1;
-                    _index++;
-                }
+        //    public bool MoveNext()
+        //    {
+        //        if (_repeated < _source._repeats)
+        //            _repeated++;
+        //        else
+        //        {
+        //            _repeated = 1;
+        //            _index++;
+        //        }
 
-                if (_index * _source._repeats + _repeated -1 < _source.Length)
-                    return true;
-                return false;
-            }
+        //        if (_index * _source._repeats + _repeated - 1 < _source.Length)
+        //        {
+        //            _current = _source._source[_index];
+        //            return true;
+        //        }
+        //        return false;
+        //    }
 
-            public void Reset()
-            {
-            }
-        }
+        //    public void Reset()
+        //    {
+        //    }
+        //}
     }
 }

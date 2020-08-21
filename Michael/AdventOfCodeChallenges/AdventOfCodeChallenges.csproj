@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Combinatorics" Version="1.1.0.19" />
+    <PackageReference Include="LinqFaster.SIMD" Version="1.0.3" />
     <PackageReference Include="morelinq" Version="3.3.2" />
   </ItemGroup>
 </Project>

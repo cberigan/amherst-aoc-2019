@@ -10,7 +10,7 @@ namespace AdventOfCodeChallenges.Benchmark
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            BenchmarkRunner.Run<Challenge4Benchmark>();
+            BenchmarkRunner.Run<C16Benchmark>();
             Console.ReadLine();
         }
     }
