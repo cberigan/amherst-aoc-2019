@@ -27,14 +27,14 @@ namespace AdventOfCodeChallenges.C16
                 Console.SetCursorPosition(13, 0);
                 Console.Write(i);
 
-                for (int iter = 0; iter < signal.Length; iter++)
-                //Parallel.For(0, signal.Length, iter =>
+                //for (int iter = 0; iter < signal.Length; iter++)
+                Parallel.For(0, signal.Length, iter =>
                 {
                     last = Calculate(signal, iter, output);
 
                 }
-                //);
-                (signal, output) = (output, signal);
+                );
+            (signal, output) = (output, signal);
             }
             
 
@@ -44,6 +44,10 @@ namespace AdventOfCodeChallenges.C16
         // benchmark .net says 53ms, compared to 76ms for default
         // changing the state machine to jump to the next non-zero state (skipping ahead by the repeat count)
         // brings the time down to 39ms
+        // lol. doing it on the desktop is .54ms. damn that laptop is slow.
+        // nope. the .54 was with the regular for loop. Parallel is .09ms.
+        // nope again. with the actual message * 10,000 thing, it's impossible.
+        // need a better approach.
         private sbyte[] Calculate(sbyte[] inputSignal, int iteration, sbyte[] output)
         {
             var state = new IteratorStateMachine(inputSignal, iteration);

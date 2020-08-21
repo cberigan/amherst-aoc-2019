@@ -10,16 +10,31 @@ namespace AdventOfCodeChallenges.Benchmark
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            BenchmarkRunner.Run<C16Benchmark>();
+            BenchmarkRunner.Run<C16Final>();
             Console.ReadLine();
+        }
+    }
+
+    public class C16Final
+    {
+        private readonly C16.Challenge.Pt2 _c;
+
+        public C16Final()
+        {
+            _c = new C16.Challenge.Pt2();
+        }
+        [Benchmark]
+        public void Run()
+        {
+            _c.Stolen();
         }
     }
 
     [KeepBenchmarkFiles]
     public class Challenge4Benchmark
     {
-        private readonly Challenge.Pt2 _original;
-        private readonly Challenge.Iter2 _updated;
+        private readonly C4.Challenge.Pt2 _original;
+        private readonly C4.Challenge.Iter2 _updated;
 
         public Challenge4Benchmark()
         {

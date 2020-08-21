@@ -1,4 +1,5 @@
-﻿using static System.Console;
+﻿using System.Diagnostics;
+using static System.Console;
 
 namespace AdventOfCodeChallenges.Console
 {
@@ -6,9 +7,12 @@ namespace AdventOfCodeChallenges.Console
     {
         public static void Main(string[] args)
         {
-            var result = new C16.Challenge.Pt2().Run();
+            var sw = Stopwatch.StartNew();
+            var result = new C16.Challenge.Pt2().Stolen();
+            sw.Stop();
 
             WriteLine(result);
+            WriteLine("finished in {0}", sw.ElapsedMilliseconds);
             ReadLine();
         }
     }
