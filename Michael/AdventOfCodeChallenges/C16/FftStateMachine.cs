@@ -27,13 +27,13 @@ namespace AdventOfCodeChallenges.C16
                 Console.SetCursorPosition(13, 0);
                 Console.Write(i);
 
-                //for (int iter = 0; iter < signal.Length; iter++)
-                Parallel.For(0, signal.Length, iter =>
+                for (int iter = 0; iter < signal.Length; iter++)
+                //Parallel.For(0, signal.Length, iter =>
                 {
                     last = Calculate(signal, iter, output);
 
                 }
-                );
+                //);
                 (signal, output) = (output, signal);
             }
             
@@ -42,14 +42,17 @@ namespace AdventOfCodeChallenges.C16
         }
 
         // benchmark .net says 53ms, compared to 76ms for default
+        // changing the state machine to jump to the next non-zero state (skipping ahead by the repeat count)
+        // brings the time down to 39ms
         private sbyte[] Calculate(sbyte[] inputSignal, int iteration, sbyte[] output)
         {
             var state = new IteratorStateMachine(inputSignal, iteration);
-            state.Next(0); // skip the first one
+            int x = 0;
+            state.Next(ref x); // skip the first one
             int sum = 0;
             for (int i = 0; i < inputSignal.Length; i++)
             {
-                sum += state.Next(i);
+                sum += state.Next(ref i);
             }
             output[iteration] = (sbyte)new IndexableNumber(sum)[0];
             return output;
@@ -69,7 +72,7 @@ namespace AdventOfCodeChallenges.C16
                 _state = 0;
             }
 
-            public sbyte Next(int index)
+            public sbyte Next(ref int index)
             {
                 
                 sbyte res;
@@ -95,7 +98,18 @@ namespace AdventOfCodeChallenges.C16
                 {
                     case 0:
                         _count = _repeatCount;
-                        _state = (_state + 1) % 4;
+                        switch (_state)
+                        {
+                            case 1:
+                            case 3:
+                                _state = (_state + 2) % 4; // skip ahead to the next valid state, assuming that non-zero has been done correctly.
+                                index += _repeatCount + 1;
+                                break;
+                            default: 
+                                _state = (_state + 1) % 4; // skip ahead to the next valid state, assuming that non-zero has been done correctly.
+
+                                break;
+                        }
                         break;
                     default:
                         _count--;
