@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdventOfCodeChallenges.Core.Collections;
+using System;
 using System.Collections.Generic;
 
 namespace AdventOfCodeChallenges.Core.Cpu
@@ -18,7 +19,7 @@ namespace AdventOfCodeChallenges.Core.Cpu
                
         public int TargetIndex { get; }
 
-        public Arguments(List<int> memory, Instruction ins, int opCodeArgLength, int argStartIndex, int relativeBaseOffset)
+        public Arguments(BigList<int> memory, Instruction ins, int opCodeArgLength, int argStartIndex, int relativeBaseOffset)
         {
             this.Arg1Index = argStartIndex;
             if (ins.Op == OpCode.Halt)
@@ -49,7 +50,7 @@ namespace AdventOfCodeChallenges.Core.Cpu
             };
         }
 
-        private static int ReadValue(int index, int relativeBaseOffset, List<int> memory, ParameterModeEnum mode)
+        private static int ReadValue(int index, int relativeBaseOffset, BigList<int> memory, ParameterModeEnum mode)
         {
             return mode switch
             {

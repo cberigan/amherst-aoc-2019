@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AdventOfCodeChallenges.Core.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using static AdventOfCodeChallenges.Core.Cpu.OpCode;
 
 namespace AdventOfCodeChallenges.Core.Cpu
@@ -13,7 +15,7 @@ namespace AdventOfCodeChallenges.Core.Cpu
         public bool IsHalted => Instruction.Op == OpCode.Halt || _halted;
         public int? Phase { get; set; }
         public int NextWriteInstruction { get; set; }
-        public List<int> Memory { get; set; }
+        public BigList<int> Memory { get; set; }
         public int CurrentOffset { get; private set; }
         public int CurrentOutputValue { get; private set; }
         public bool IsAtEnd => CurrentOffset >= Memory.Count;
@@ -23,7 +25,7 @@ namespace AdventOfCodeChallenges.Core.Cpu
 
         public IntCodeStateMachine(IEnumerable<int> memory, int? phase = null)
         {
-            Memory = new List<int>(memory);
+            Memory = new BigList<int>(memory);
             Phase = phase;
         }
 
@@ -55,7 +57,12 @@ namespace AdventOfCodeChallenges.Core.Cpu
             _halted = true;
         }
 
-        private Instruction Read() => new Instruction(Memory[CurrentOffset]);
+        private Instruction Read()
+        {
+            if (Memory[CurrentOffset] == 0)
+                System.Diagnostics.Debugger.Break();
+            return new Instruction(Memory[CurrentOffset]);
+        }
 
         private Arguments Decode()
         {
@@ -110,6 +117,8 @@ namespace AdventOfCodeChallenges.Core.Cpu
                 case AdjustRelativeBase:
                     RelativeBaseOffset += args.Arg1;
                     CurrentOffset += OpCodeArgLength(ins.Op) + 1;
+                    //if (RelativeBaseOffset > memory.Count)
+                    //    memory.AddRange(Enumerable.Repeat(0, RelativeBaseOffset - memory.Count));
                     break;
                 case OpCode.Halt:
                     break;
@@ -134,5 +143,68 @@ namespace AdventOfCodeChallenges.Core.Cpu
                 _ => 1 // halt. since I'm no longer jumping to the end of the memory, this might be a bug now
             };
         }
+
+        //private class GrowingList<T> where T : struct
+        //{
+        //    private T[] _items;
+        //    private int _currentLength = 0;
+        //    public GrowingList(IEnumerable<T> source)
+        //    {
+        //        if (source is IList<T> l)
+        //        {
+        //            _items = new T[l.Count];
+        //            l.CopyTo(_items, 0);
+        //        }
+        //        else
+        //            AddRange(source);
+        //    }
+
+        //    public ref T this[int i]
+        //    {
+        //        get { return ref _items[i]; }
+                
+        //    }
+
+        //    public T this[int i]
+        //    {
+        //        set { _items[i] = value; }
+        //    }
+                
+
+        //    public void Add(T item)
+        //    {
+        //        EnsureCapacity(_currentLength + 1);
+        //        _currentLength++;
+        //        _items[_currentLength + 1] = item;
+        //    }
+
+        //    public void AddRange(IEnumerable<T> source)
+        //    {
+        //        if (source is IList<T> l)
+        //        {
+        //            var lastLength = _items.Length;
+        //            EnsureCapacity(_currentLength + l.Count);
+        //            l.CopyTo(_items, lastLength);
+        //            _currentLength += l.Count;
+        //        }
+        //        else
+        //        {
+        //            foreach (var item in source)
+        //                Add(item);
+        //        }
+        //    }
+
+        //    private void EnsureCapacity(int size)
+        //    {
+        //        var finalLength = _currentLength + size;
+        //        if (_items.Length <= finalLength)
+        //        {
+        //            var increases = finalLength / _items.Length;
+        //            var newArray = new T[_items.Length * increases];
+        //            Array.Copy(_items, newArray, _items.Length);
+        //            _items = newArray;
+        //        }
+        //    }
+        //}
     }
 }
