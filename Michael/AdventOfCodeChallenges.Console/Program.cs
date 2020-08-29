@@ -8,7 +8,7 @@ namespace AdventOfCodeChallenges.Console
         public static void Main(string[] args)
         {
             var sw = Stopwatch.StartNew();
-            var result = new C16.Challenge.Pt2().Stolen();
+            var result = new C17.Challenge.Pt1().Run();
             sw.Stop();
 
             WriteLine(result);
