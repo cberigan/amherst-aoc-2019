@@ -1,6 +1,7 @@
 ﻿using AdventOfCodeChallenges.C10;
 using AdventOfCodeChallenges.Core;
 using AdventOfCodeChallenges.Core.Input;
+using AdventOfCodeChallenges.Core.Traversal;
 using System;
 
 namespace AdventOfCodeChallenges.C15

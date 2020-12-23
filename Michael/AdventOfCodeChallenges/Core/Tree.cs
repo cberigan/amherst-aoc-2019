@@ -61,7 +61,12 @@ namespace AdventOfCodeChallenges.Core
             this._parent?.AddChild(outerNode);
         }
 
-        public void AddChild(T element) => AddChild(new TreeNode<T>(element));
+        public TreeNode<T> AddChild(T element)
+        {
+            var n = new TreeNode<T>(element);
+            AddChild(n);
+            return n;
+        }
 
         public override bool Equals(object obj)
         {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 namespace AdventOfCodeChallenges.Core
 {
     public interface IParser<T> { List<T> Parse(string input); }
+    public interface IParser2<T> { IEnumerable<T> Parse(string input); }
     public sealed class OrbitParser : IParser<(CelestialBody inner, CelestialBody outer)>
     {
         public List<(CelestialBody inner, CelestialBody outer)> Parse(string input)

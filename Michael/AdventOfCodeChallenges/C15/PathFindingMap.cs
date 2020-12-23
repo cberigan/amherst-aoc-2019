@@ -18,8 +18,7 @@ namespace AdventOfCodeChallenges.C15
             if (_data.ContainsKey(c)) return;
 
             var lowestNeighbor = int.MaxValue;
-            foreach (var cell in stackalloc Coordinate[]
-                                        {
+            foreach (var cell in stackalloc Coordinate[] {
                 c.MoveUp(),
                 c.MoveDown(),
                 c.MoveLeft(),

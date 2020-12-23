@@ -1,4 +1,4 @@
-﻿namespace AdventOfCodeChallenges.C15
+﻿namespace AdventOfCodeChallenges.Core.Traversal
 {
     public enum MovementCommand
     {
